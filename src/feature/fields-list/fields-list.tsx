@@ -1,14 +1,18 @@
-import SECTIONS_JSON from '@/data/sections.json'
 import { Field } from "@/components/field"
+import { IField } from '@/types/field'
 
-export function FieldsList() {
-	const sections = SECTIONS_JSON.data.sections[0].children
+interface IProps {
+	fields: IField[]
+}
+
+export function FieldsList(props: IProps) {
+	const { fields } = props
 	return (
 		<ul>
 			{
-				sections.map(section => {
+				fields.map(field => {
 					return (
-						<Field field={section} key={section.id} />
+						<Field field={field} key={field.id} />
 					)
 				})
 			}
