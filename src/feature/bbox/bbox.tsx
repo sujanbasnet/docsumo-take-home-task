@@ -10,7 +10,7 @@ interface IProps {
 export function BBox(props: IProps) {
 	const { position } = props
 
-	const { canvas, canvas2dCtx, hasImageBeenDrawn, offset, scale, initialScale } = usePreviewerContext()
+	const { bboxCanvas: canvas, canvas2dCtx, hasImageBeenDrawn, offset, scale, initialScale } = usePreviewerContext()
 
 	useEffect(() => {
 		if (canvas === null) {
@@ -64,6 +64,8 @@ export function BBox(props: IProps) {
 		ctx.fill()
 
 		ctx.restore()
+
+		console.log("Position: ", position)
 
 		return () => {
 			ctx.clearRect(scaledX1, scaledY1, Math.abs(scaledX2 - scaledX1), Math.abs(scaledY2 - scaledY1))

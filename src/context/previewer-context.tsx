@@ -1,7 +1,8 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useMemo, useState } from "react";
 
 interface IPreviewerContext {
-	canvas: HTMLCanvasElement | null
+	imageCanvas: HTMLCanvasElement | null
+	bboxCanvas: HTMLCanvasElement | null
 	canvas2dCtx: CanvasRenderingContext2D | null
 	offset: {
 		x: number,
@@ -12,7 +13,8 @@ interface IPreviewerContext {
 	hasImageBeenDrawn: boolean
 	setScale: Dispatch<SetStateAction<IPreviewerContext['scale']>>
 	setOffset: Dispatch<SetStateAction<IPreviewerContext['offset']>>
-	setCanvas: Dispatch<SetStateAction<IPreviewerContext['canvas']>>
+	setImageCanvas: Dispatch<SetStateAction<IPreviewerContext['imageCanvas']>>
+	setBBoxCanvas: Dispatch<SetStateAction<IPreviewerContext['bboxCanvas']>>
 	setCanvas2dCtx: Dispatch<SetStateAction<IPreviewerContext['canvas2dCtx']>>
 	setInitialScale: Dispatch<SetStateAction<IPreviewerContext['initialScale']>>
 	setHasImageBeenDrawn: Dispatch<SetStateAction<IPreviewerContext['hasImageBeenDrawn']>>
@@ -23,7 +25,8 @@ const PreviewerContext = createContext<IPreviewerContext | null>(null)
 export function PreviewerContextProvider(props: { children: ReactNode }) {
 	const { children } = props
 
-	const [canvas, setCanvas] = useState<IPreviewerContext['canvas']>(null)
+	const [imageCanvas, setImageCanvas] = useState<IPreviewerContext['imageCanvas']>(null)
+	const [bboxCanvas, setBBoxCanvas] = useState<IPreviewerContext['bboxCanvas']>(null)
 	const [canvas2dCtx, setCanvas2dCtx] = useState<IPreviewerContext['canvas2dCtx']>(null)
 	const [offset, setOffset] = useState<IPreviewerContext['offset']>({ x: 0, y: 0 })
 	const [scale, setScale] = useState<IPreviewerContext['scale']>(1)
@@ -34,16 +37,18 @@ export function PreviewerContextProvider(props: { children: ReactNode }) {
 		canvas2dCtx,
 		offset,
 		scale,
-		canvas,
+		imageCanvas,
+		bboxCanvas,
 		initialScale,
 		hasImageBeenDrawn,
 		setScale,
 		setOffset,
-		setCanvas,
+		setImageCanvas,
 		setCanvas2dCtx,
 		setInitialScale,
-		setHasImageBeenDrawn
-	}), [canvas2dCtx, offset, scale, canvas, initialScale, hasImageBeenDrawn])
+		setHasImageBeenDrawn,
+		setBBoxCanvas
+	}), [canvas2dCtx, offset, scale, imageCanvas, bboxCanvas, initialScale, hasImageBeenDrawn])
 
 	return (
 		<PreviewerContext value={value}>

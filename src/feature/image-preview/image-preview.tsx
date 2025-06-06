@@ -8,7 +8,7 @@ interface IProps {
 export function ImagePreview(props: IProps) {
 	const { imageURL } = props
 
-	const { setHasImageBeenDrawn, canvas, canvas2dCtx, scale, setInitialScale, setOffset } = usePreviewerContext()
+	const { setHasImageBeenDrawn, imageCanvas: canvas, scale, setInitialScale, setOffset, setImageCanvas } = usePreviewerContext()
 
 	const imageRef = useRef<HTMLImageElement>(null)
 	const [hasImageLoaded, setHasImageLoaded] = useState(false)
@@ -40,12 +40,12 @@ export function ImagePreview(props: IProps) {
 			return
 		}
 
-		if (canvas2dCtx === null) {
-			console.warn("Canvas 2d context is null.")
+		const ctx = canvas.getContext('2d')
+
+		if (ctx === null) {
+			console.warn('There was error getting 2d context.')
 			return
 		}
-
-		const ctx = canvas2dCtx
 
 		// set canvas width and height to rendered canvas widht and height
 		const canvasWidth = canvas.width = canvas.clientWidth;
@@ -80,6 +80,8 @@ export function ImagePreview(props: IProps) {
 		const offsetX = (canvasWidth - drawWidth) / 2;
 		const offsetY = (canvasHeight - drawHeight) / 2;
 
+		ctx.clearRect(0, 0, canvasWidth, canvasHeight)
+
 		ctx.save()
 		ctx.translate(canvasWidth / 2, canvasHeight / 2)
 		ctx.scale(scale, scale)
@@ -93,11 +95,11 @@ export function ImagePreview(props: IProps) {
 			x: offsetX,
 			y: offsetY,
 		})
-	}, [scale, hasImageLoaded, canvas, canvas2dCtx])
+	}, [scale, hasImageLoaded, canvas])
 
 	return (
 		<canvas ref={(node) => {
-			setCanvas(node)
+			setImageCanvas(node)
 		}} className="h-full w-full"></canvas>
 	)
 
