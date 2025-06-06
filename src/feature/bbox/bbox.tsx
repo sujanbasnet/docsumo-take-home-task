@@ -1,0 +1,73 @@
+import { usePreviewerContext } from "@/context/previewer-context"
+import { useEffect } from "react"
+
+interface IProps {
+	id: number
+	position: [number, number, number, number]
+	isShow: boolean
+}
+
+export function BBox(props: IProps) {
+	const { position } = props
+
+	const { canvas, canvas2dCtx, hasImageBeenDrawn, offset, scale, initialScale } = usePreviewerContext()
+
+	useEffect(() => {
+		if (canvas === null) {
+			console.warn("Canvas is not set.")
+			return
+		}
+
+		if (canvas2dCtx === null) {
+			console.warn("Canvas 2d context is not set.")
+			return
+		}
+
+		if (!Array.isArray(position) || position?.length !== 4) {
+			console.warn("Position of bbox incorrect")
+			return
+		}
+
+		if (initialScale === undefined) {
+			console.warn("Initial scale is not set.")
+			return
+		}
+
+		const ctx = canvas2dCtx
+		const canvasWidth = canvas.width
+		const canvasHeight = canvas.height
+
+		if (ctx === null) {
+			return
+		}
+
+		if (!hasImageBeenDrawn) {
+			return
+		}
+
+		// hightlight field in image
+		const { x: offsetX, y: offsetY } = offset
+
+		const [x1, y1, x2, y2] = position
+		const scaledX1 = offsetX + x1 * initialScale
+		const scaledY1 = offsetY + y1 * initialScale
+		const scaledX2 = offsetX + x2 * initialScale
+		const scaledY2 = offsetY + y2 * initialScale
+
+		ctx.save()
+		ctx.translate(canvasWidth / 2, canvasHeight / 2)
+		ctx.scale(scale, scale)
+		ctx.translate(-canvasWidth / 2, -canvasHeight / 2)
+		ctx.beginPath()
+		ctx.rect(scaledX1, scaledY1, Math.abs(scaledX2 - scaledX1), Math.abs(scaledY2 - scaledY1))
+		ctx.fillStyle = 'rgba(0,255,0,0.3)'
+		ctx.fill()
+
+		ctx.restore()
+
+		return () => {
+			ctx.clearRect(scaledX1, scaledY1, Math.abs(scaledX2 - scaledX1), Math.abs(scaledY2 - scaledY1))
+		}
+	}, [hasImageBeenDrawn, scale, offset, initialScale, canvas, canvas2dCtx, position])
+	return null
+}
