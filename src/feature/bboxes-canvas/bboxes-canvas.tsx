@@ -1,7 +1,7 @@
 import { usePreviewerContext } from "@/context/previewer-context"
 import { useEffect } from "react"
 
-export function BBoxesPreview() {
+export function BBoxesCanvas() {
 	const { bboxCanvas: canvas, setBBoxCanvas, setCanvas2dCtx, canvas2dCtx } = usePreviewerContext()
 
 	useEffect(() => {

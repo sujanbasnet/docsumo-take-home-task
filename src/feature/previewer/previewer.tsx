@@ -1,8 +1,8 @@
 "use client"
 
 import { usePreviewerContext } from "@/context/previewer-context"
-import { ImagePreview } from "../image-preview"
-import { BBoxesPreview } from "../bboxes-preview"
+import { ImageCanvas } from "../image-canvas"
+import { BBoxesCanvas } from "../bboxes-canvas"
 
 export function Previewer() {
 	const {
@@ -14,11 +14,10 @@ export function Previewer() {
 			<div className="grid grid-rows-1 grid-cols-1 h-full">
 				<div className="row-start-1 col-start-1">
 
-					<ImagePreview imageURL="/document.jpg" />
+					<ImageCanvas imageURL="/document.jpg" />
 				</div>
 				<div className="row-start-1 col-start-1" >
-					<BBoxesPreview />
-
+					<BBoxesCanvas />
 				</div>
 			</div>
 			<div className="absolute bottom-5 right-5 flex flex-col bg-black rounded-full overflow-hidden text-2xl font-bold border-gray">

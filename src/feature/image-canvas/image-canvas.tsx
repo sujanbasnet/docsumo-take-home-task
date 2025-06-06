@@ -5,7 +5,7 @@ interface IProps {
 	imageURL: string
 }
 
-export function ImagePreview(props: IProps) {
+export function ImageCanvas(props: IProps) {
 	const { imageURL } = props
 
 	const { setHasImageBeenDrawn, imageCanvas: canvas, scale, setInitialScale, setOffset, setImageCanvas } = usePreviewerContext()
