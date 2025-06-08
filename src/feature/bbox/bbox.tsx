@@ -53,23 +53,30 @@ export function BBox(props: IProps) {
 		const scaledY1 = offsetY + y1 * initialScale
 		const scaledX2 = offsetX + x2 * initialScale
 		const scaledY2 = offsetY + y2 * initialScale
+		const width = Math.abs(scaledX2 - scaledX1)
+		const height = Math.abs(scaledY2 - scaledY1)
 
 		ctx.save()
 		ctx.translate(canvasWidth / 2, canvasHeight / 2)
 		ctx.scale(scale, scale)
 		ctx.translate(-canvasWidth / 2, -canvasHeight / 2)
 		ctx.beginPath()
-		ctx.rect(scaledX1, scaledY1, Math.abs(scaledX2 - scaledX1), Math.abs(scaledY2 - scaledY1))
+		ctx.rect(scaledX1, scaledY1, width, height)
 		ctx.fillStyle = 'rgba(0,255,0,0.3)'
 		ctx.fill()
 
 		ctx.restore()
 
-		console.log("Position: ", position)
-
 		return () => {
-			ctx.clearRect(scaledX1, scaledY1, Math.abs(scaledX2 - scaledX1), Math.abs(scaledY2 - scaledY1))
+			ctx.save()
+			ctx.translate(canvasWidth / 2, canvasHeight / 2)
+			ctx.scale(scale, scale)
+			ctx.translate(-canvasWidth / 2, -canvasHeight / 2)
+			// add 2 to width and height to clear leftover pixels
+			ctx.clearRect(scaledX1 - 1, scaledY1 - 1, width + 2, height + 2)
+			ctx.restore()
 		}
 	}, [hasImageBeenDrawn, scale, offset, initialScale, canvas, canvas2dCtx, position])
+
 	return null
 }
