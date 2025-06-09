@@ -8,7 +8,7 @@ interface IProps {
 export function FieldsList(props: IProps) {
 	const { fields } = props
 	return (
-		<ul>
+		<ul className="grid gap-2 py-2">
 			{
 				fields.map(field => {
 					return (
