@@ -6,7 +6,7 @@ import { Previewer } from "@/feature/previewer";
 import { useCallback, useState } from "react";
 import Sections from '@/data/sections.json'
 import { PreviewerContextProvider } from "@/context/previewer-context";
-import { Tab, Tabs, Box } from "@mui/material";
+import { Tab, Tabs, } from "@mui/material";
 
 export default function Root() {
 	const [fields, setFields] = useState(Sections.data.sections[0].children)
