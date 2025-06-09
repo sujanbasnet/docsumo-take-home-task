@@ -3,13 +3,19 @@
 import { Sidebar } from "@/components/sidebar";
 import { FieldsList } from "@/feature/fields-list";
 import { Previewer } from "@/feature/previewer";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Sections from '@/data/sections.json'
 import { PreviewerContextProvider } from "@/context/previewer-context";
-import { Tab, Tabs, TabPanel, Box } from "@mui/material";
+import { Tab, Tabs, Box } from "@mui/material";
 
 export default function Root() {
 	const [fields, setFields] = useState(Sections.data.sections[0].children)
+
+	const removeField = useCallback((id: number) => {
+		setFields(fields => {
+			return fields.filter(field => field.id !== id)
+		});
+	}, [])
 
 	return (
 		<PreviewerContextProvider>
@@ -25,7 +31,7 @@ export default function Root() {
 							<Tab label="Regular Fields" />
 						</Tabs>
 						<TabPanel value={0} index={0}>
-							<FieldsList fields={fields} />
+							<FieldsList fields={fields} removeField={removeField} />
 						</TabPanel>
 					</div>
 				</Sidebar>

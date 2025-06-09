@@ -50,7 +50,7 @@ export function EllipsisMenu(props: IProps) {
 			>
 				{props.options.map((option) => (
 					<MenuItem key={option.label} onClick={handleClose}>
-						<button onClick={option.action}>{option.label}</button>
+						<button onClick={option.action} className="text-sm w-full text-left cursor-pointer">{option.label}</button>
 					</MenuItem>
 				))}
 			</Menu>
