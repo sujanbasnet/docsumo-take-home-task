@@ -21,10 +21,10 @@ export function Previewer() {
 				</div>
 			</div>
 			<div className="absolute bottom-5 right-5 flex flex-col bg-black rounded-full overflow-hidden text-2xl font-bold border-gray">
-				<button className="px-2.5 py-0.5 cursor-pointer" onClick={() => {
+				<button className="px-2.5 py-0.5 cursor-pointer bg-gray-400 dark:bg-black dark:text-white" onClick={() => {
 					setScale(prevScale => prevScale === 1 ? 1.75 : prevScale === 1.75 ? 2 : prevScale)
 				}}>+</button>
-				<button className="px-2.5 py-0.5 cursor-pointer" onClick={() => {
+				<button className="px-2.5 py-0.5 cursor-pointer bg-gray-400 dark:bg-black dark:text-white" onClick={() => {
 					setScale(prevScale => prevScale === 2 ? 1.75 : prevScale === 1.75 ? 1 : prevScale)
 				}}>-</button>
 			</div>

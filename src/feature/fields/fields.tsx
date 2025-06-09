@@ -11,7 +11,7 @@ export function Fields() {
 
 	return (
 		<div>
-			<p>Fields</p>
+			<p className="dark:text-white">Fields</p>
 			<Tabs tabs={tabs} />
 		</div>
 	)

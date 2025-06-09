@@ -15,7 +15,7 @@ export function Field(props: IProps) {
 	const [isChecked, setIsChecked] = useState(true)
 	return (
 		<>
-			<fieldset className="rounded-md p-2.5 flex bg-gray-100">
+			<fieldset className="rounded-md p-2.5 flex bg-gray-100 dark:bg-gray dark:text-white">
 				<div className="flex-grow flex items-start gap-2">
 					<div className="rounded-sm flex overflow-hidden">
 						<div className="w-1 bg-red-500 items-stretch"></div>
