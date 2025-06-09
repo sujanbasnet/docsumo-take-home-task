@@ -1,6 +1,15 @@
-import { useEffect, useState } from "react";
+"use client"
 
-export function useTheme() {
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
+
+interface IThemeContext {
+	theme: 'light' | 'dark'
+	setTheme: Dispatch<SetStateAction<IThemeContext['theme']>>
+}
+
+const ThemeContext = createContext<IThemeContext | null>(null)
+
+export function ThemeContextProvider({ children }: { children: ReactNode }) {
 	const [theme, setTheme] = useState<'light' | 'dark'>('dark')
 
 	useEffect(() => {
@@ -45,5 +54,20 @@ export function useTheme() {
 		}
 	}, [theme])
 
-	return [theme, setTheme]
+
+	return (
+		<ThemeContext.Provider value={{ theme, setTheme }}>
+			{children}
+		</ThemeContext.Provider>
+	)
+}
+
+export function useTheme() {
+	const context = useContext(ThemeContext)
+
+	if (context === null) {
+		throw new Error('useTheme must be used within a ThemeProvider')
+	}
+
+	return context
 }

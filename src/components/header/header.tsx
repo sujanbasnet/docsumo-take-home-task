@@ -1,11 +1,11 @@
 'use client'
 
-import { useTheme } from "@/hooks/useTheme";
+import { useTheme } from "@/context/theme-context";
 import { Brightness4, Brightness7 } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 
 export function Header() {
-	const [theme, setTheme] = useTheme()
+	const { theme, setTheme } = useTheme()
 
 	function toggleTheme() {
 		setTheme(theme === 'light' ? 'dark' : 'light')

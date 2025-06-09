@@ -1,6 +1,7 @@
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import { useState } from "react";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { useTheme } from "@/context/theme-context";
 
 interface IOption {
 	label: string
@@ -13,6 +14,8 @@ interface IProps {
 
 export function EllipsisMenu(props: IProps) {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const { theme } = useTheme()
+
 	const open = Boolean(anchorEl);
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
@@ -31,7 +34,9 @@ export function EllipsisMenu(props: IProps) {
 				onClick={handleClick}
 				className="!p-0"
 			>
-				<MoreVertIcon />
+				<MoreVertIcon
+					sx={{ color: theme === 'light' ? 'black' : 'white' }}
+				/>
 			</IconButton>
 			<Menu
 				anchorEl={anchorEl}

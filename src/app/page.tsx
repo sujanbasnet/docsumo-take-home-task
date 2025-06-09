@@ -20,12 +20,11 @@ export default function Root() {
 	return (
 		<PreviewerContextProvider>
 			<main className="grid grid-cols-[1fr_400px] gap-4 h-full">
-				<div className="p-2 bg-gray-50">
+				<div className="p-2 bg-gray-50 dark:bg-[#526069]">
 					<Previewer fields={fields} />
 				</div>
 				<Sidebar>
 					<div className="p-2">
-
 						<p>Fields</p>
 						<Tabs value={0}>
 							<Tab label="Regular Fields" />
