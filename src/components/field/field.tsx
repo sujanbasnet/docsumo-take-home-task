@@ -2,7 +2,6 @@ import { BBox } from "@/feature/bbox"
 import { getInitials } from "@/lib/util"
 import { IField } from "@/types/field"
 import { Checkbox, } from "@mui/material"
-import { useState } from "react"
 import { EllipsisMenu } from "@/components/menu"
 
 interface IProps {
