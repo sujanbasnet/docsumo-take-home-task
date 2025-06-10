@@ -28,7 +28,7 @@ export default function RootLayout({
 		<html lang="en">
 			<ThemeContextProvider>
 				<body
-					className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col dark:bg-black dark:bg-black dark:text-white`}
+					className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col dark:bg-black dark:text-white`}
 				>
 					<Header />
 					<div className="flex-grow">
