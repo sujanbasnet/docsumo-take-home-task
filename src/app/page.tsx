@@ -74,7 +74,7 @@ export default function Root() {
 		<PreviewerContextProvider>
 			<main className="grid grid-cols-[1fr_400px] gap-4 h-full">
 				<div className="p-2 bg-gray-50 dark:bg-[#526069]">
-					<Previewer fields={fields} />
+					<Previewer />
 				</div>
 				<Sidebar>
 					<div className="flex flex-col justify-between h-full py-2">
@@ -84,6 +84,7 @@ export default function Root() {
 								<Tab label="Regular Fields" />
 							</Tabs>
 							<TabPanel value={0} index={0}>
+								{/* @ts-expect-error - ignoring type error from dataset, todo: implement type for all data fields */}
 								<FieldsList fields={fields} removeField={removeField} selectField={selectField} deselectField={deselectField} />
 							</TabPanel>
 						</div>

@@ -95,7 +95,7 @@ export function ImageCanvas(props: IProps) {
 			x: offsetX,
 			y: offsetY,
 		})
-	}, [scale, hasImageLoaded, canvas])
+	}, [scale, hasImageLoaded, canvas, setInitialScale, setOffset, setHasImageBeenDrawn])
 
 	return (
 		<canvas ref={(node) => {

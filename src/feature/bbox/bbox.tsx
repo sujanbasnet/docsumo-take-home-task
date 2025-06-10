@@ -105,7 +105,7 @@ export function BBox(props: IProps) {
 
 			canvas.removeEventListener('mousemove', handleMouseMoveEvent)
 		}
-	}, [hasImageBeenDrawn, scale, offset, initialScale, canvas, canvas2dCtx, position, setIsHovering, showBox])
+	}, [hasImageBeenDrawn, scale, offset, initialScale, canvas, canvas2dCtx, position, setIsHovering, showBox, color])
 
 	return null
 }

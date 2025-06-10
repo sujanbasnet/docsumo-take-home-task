@@ -15,7 +15,7 @@ export function BBoxesCanvas() {
 		canvas.height = canvas.clientHeight;
 
 		setCanvas2dCtx(canvas.getContext('2d'))
-	}, [canvas])
+	}, [canvas, setCanvas2dCtx])
 
 	useEffect(() => {
 		if (canvas === null) {
