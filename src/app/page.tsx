@@ -87,9 +87,9 @@ export default function Root() {
 								<FieldsList fields={fields} removeField={removeField} selectField={selectField} deselectField={deselectField} />
 							</TabPanel>
 						</div>
-						<div className="flex justify-between sticky">
-							<Button className="bg-gray-100 dark:bg-gray" onClick={selectAllFields}>Select all</Button>
-							<Button className="bg-gray-100 dark:bg-gray disabled:opacity-50" disabled={totalSelectedFields < 2} onClick={() => setModalStatus('confirm')}>Confirm</Button>
+						<div className="flex justify-between sticky border-t py-2">
+							<Button className="bg-gray-100 dark:bg-gray-800" onClick={selectAllFields}>Select all</Button>
+							<Button className="bg-gray-100 dark:bg-gray-800 disabled:opacity-50" disabled={totalSelectedFields < 2} onClick={() => setModalStatus('confirm')}>Confirm</Button>
 						</div>
 					</div>
 				</Sidebar>
