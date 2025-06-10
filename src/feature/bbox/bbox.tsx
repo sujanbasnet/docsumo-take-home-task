@@ -1,15 +1,17 @@
 import { usePreviewerContext } from "@/context/previewer-context"
 import { hexToRgba } from "@/lib/util"
-import { useEffect } from "react"
+import { Dispatch, SetStateAction, useEffect } from "react"
 
 interface IProps {
 	id: number
 	position: [number, number, number, number]
 	color: string
+	showBox: boolean
+	setIsHovering: Dispatch<SetStateAction<boolean>>
 }
 
 export function BBox(props: IProps) {
-	const { position, color } = props
+	const { position, color, setIsHovering, showBox } = props
 
 	const { bboxCanvas: canvas, canvas2dCtx, hasImageBeenDrawn, offset, scale, initialScale } = usePreviewerContext()
 
@@ -63,10 +65,34 @@ export function BBox(props: IProps) {
 		ctx.translate(-canvasWidth / 2, -canvasHeight / 2)
 		ctx.beginPath()
 		ctx.rect(scaledX1, scaledY1, width, height)
-		ctx.fillStyle = hexToRgba(color, 0.5) || "rgba(0, 0, 0, 0.3)"
+		ctx.fillStyle = showBox ? hexToRgba(color, 0.5) || "rgba(0, 0, 0, 0.3)" : 'rgba(0,0,0,0)'
 		ctx.fill()
 
 		ctx.restore()
+
+		function handleMouseMoveEvent(e: MouseEvent) {
+			if (canvas === null) {
+				return
+			}
+
+			// Convert mouse coordinates to canvas world coordinates
+			const rectCanvas = canvas.getBoundingClientRect();
+			const mouseX = (e.clientX - rectCanvas.left) / scale;
+			const mouseY = (e.clientY - rectCanvas.top) / scale;
+
+			// Check hover
+			const isHovering = (
+				mouseX >= scaledX1 &&
+				mouseX <= scaledX1 + width &&
+				mouseY >= scaledY1 &&
+				mouseY <= scaledY1 + height
+			);
+
+			setIsHovering(isHovering)
+		}
+
+		// TODO: improve by having one event listener for all Bbox components
+		canvas.addEventListener('mousemove', handleMouseMoveEvent);
 
 		return () => {
 			ctx.save()
@@ -76,8 +102,10 @@ export function BBox(props: IProps) {
 			// add 2 to width and height to clear leftover pixels
 			ctx.clearRect(scaledX1 - 1, scaledY1 - 1, width + 2, height + 2)
 			ctx.restore()
+
+			canvas.removeEventListener('mousemove', handleMouseMoveEvent)
 		}
-	}, [hasImageBeenDrawn, scale, offset, initialScale, canvas, canvas2dCtx, position])
+	}, [hasImageBeenDrawn, scale, offset, initialScale, canvas, canvas2dCtx, position, setIsHovering, showBox])
 
 	return null
 }

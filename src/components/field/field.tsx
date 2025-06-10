@@ -23,7 +23,7 @@ export function Field(props: IProps) {
 
 	return (
 		<>
-			<fieldset className="rounded-md p-2.5 flex bg-gray-100 dark:bg-gray-800 dark:text-white" onMouseOver={() => setIsHovering(true)} onMouseOut={() => setIsHovering(false)}>
+			<fieldset className={`rounded-md p-2.5 flex bg-gray-100 dark:bg-gray-800 dark:text-white ${isHovering ? 'outline -outline-offset-2' : ''}`} onMouseOver={() => setIsHovering(true)} onMouseOut={() => setIsHovering(false)}>
 				<div className="flex-grow flex items-start gap-2">
 					<div className="rounded-sm flex overflow-hidden bg-[var(--fill)]" style={{ ['--fill' as string]: color }}>
 						<div className="w-1 items-stretch"></div>
@@ -44,13 +44,9 @@ export function Field(props: IProps) {
 					<EllipsisMenu options={[
 						{ label: 'Remove', action: () => removeField(id) }
 					]} />
-					{
-						isShowBox && (
-							<BBox position={content?.position} id={id} color={color} />
-						)
-					}
 				</div>
 			</fieldset>
+			<BBox position={content?.position} id={id} color={color} showBox={isShowBox} setIsHovering={setIsHovering} />
 		</>
 	)
 }
