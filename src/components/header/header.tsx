@@ -12,7 +12,7 @@ export function Header() {
 	}
 
 	return (
-		<nav className="px-5 py-5 flex items-center gap-5">
+		<nav className="px-5 py-2 flex items-center justify-between gap-5">
 			<h1>Review Screen</h1>
 			<IconButton onClick={toggleTheme} color="inherit">
 				{theme === 'dark' ? <Brightness7 /> : <Brightness4 />}
