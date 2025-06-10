@@ -29,4 +29,7 @@ export interface IField {
 	"time_spent": number,
 	"type": string,
 	"user_id": string
+
+	// custom fields (added by app)
+	isChecked: boolean
 }
