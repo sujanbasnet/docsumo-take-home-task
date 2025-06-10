@@ -8,11 +8,13 @@ import { EllipsisMenu } from "@/components/menu"
 interface IProps {
 	field: IField
 	removeField: (id: number) => void
+	selectField: (id: number) => void
+	deselectField: (id: number) => void
 }
 
 export function Field(props: IProps) {
-	const { field: { label, content, id }, removeField } = props
-	const [isChecked, setIsChecked] = useState(true)
+	const { field: { label, content, id, isChecked }, removeField, selectField, deselectField } = props
+
 	return (
 		<>
 			<fieldset className="rounded-md p-2.5 flex bg-gray-100 dark:bg-gray dark:text-white">
@@ -28,7 +30,7 @@ export function Field(props: IProps) {
 					</div>
 				</div>
 				<div className="flex gap-2.5">
-					<Checkbox name={label} checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} className="!p-0 !inline" />
+					<Checkbox name={label} checked={isChecked} onChange={(e) => e.target.checked ? selectField(id) : deselectField(id)} className="!p-0 !inline" />
 					<EllipsisMenu options={[
 						{ label: 'Remove', action: () => removeField(id) }
 					]} />
