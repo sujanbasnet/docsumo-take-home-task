@@ -6,7 +6,7 @@ import { Previewer } from "@/feature/previewer";
 import { useCallback, useState } from "react";
 import Sections from '@/data/sections.json'
 import { PreviewerContextProvider } from "@/context/previewer-context";
-import { Tab, Tabs, } from "@mui/material";
+import { Modal, Tab, Tabs, } from "@mui/material";
 import { Button } from "@/components/button";
 
 export default function Root() {
@@ -14,6 +14,8 @@ export default function Root() {
 		...child,
 		isChecked: false
 	})))
+
+	const [modalStatus, setModalStatus] = useState<'confirm' | 'success' | 'closed'>('closed')
 
 	const removeField = useCallback((id: number) => {
 		setFields(fields => {
@@ -62,6 +64,12 @@ export default function Root() {
 		})
 	}
 
+	const totalSelectedFields = fields.filter(field => field.isChecked).length
+
+	function closeModal() {
+		setModalStatus('closed')
+	}
+
 	return (
 		<PreviewerContextProvider>
 			<main className="grid grid-cols-[1fr_400px] gap-4 h-full">
@@ -69,7 +77,7 @@ export default function Root() {
 					<Previewer fields={fields} />
 				</div>
 				<Sidebar>
-					<div className="flex flex-col justify-between">
+					<div className="flex flex-col justify-between h-full py-2">
 						<div className="p-2 flex-grow">
 							<p>Fields</p>
 							<Tabs value={0}>
@@ -81,11 +89,34 @@ export default function Root() {
 						</div>
 						<div className="flex justify-between sticky">
 							<Button className="bg-gray-100 dark:bg-gray" onClick={selectAllFields}>Select all</Button>
-							<Button className="bg-gray-100 dark:bg-gray">Confirm</Button>
+							<Button className="bg-gray-100 dark:bg-gray disabled:opacity-50" disabled={totalSelectedFields < 2} onClick={() => setModalStatus('confirm')}>Confirm</Button>
 						</div>
 					</div>
 				</Sidebar>
 			</main >
+			{
+				modalStatus === 'confirm' && (
+					<Modal open onClose={closeModal}>
+						<div className="p-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-md">
+							<p>Are you sure you want to confirm the selected fields?</p>
+							<div className="flex justify-center gap-2 mt-10">
+								<Button onClick={() => setModalStatus('success')} className="bg-green-300">Confirm</Button>
+								<Button onClick={closeModal} className="bg-red-300">Cancel</Button>
+							</div>
+						</div>
+					</Modal>
+				)
+			}
+			{
+				modalStatus === 'success' && (
+					<Modal open onClose={closeModal}>
+						<div className="p-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md bg-green-300">
+							<p>Fields confirmed and processed successfully.</p>
+							<Button onClick={closeModal} className="bg-gray-100 mt-10 mx-auto block">Close</Button>
+						</div>
+					</Modal>
+				)
+			}
 		</PreviewerContextProvider >
 	)
 }
