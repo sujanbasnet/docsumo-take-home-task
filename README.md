@@ -33,7 +33,7 @@ Project can be played live in https://docsumo-take-home-task.vercel.app/
 - [x] Toggle for dark and light modes
 - [ ] Keyboard shortcuts
 - [x] Typescript support
-- [x] Lighthouse report attached added in Readme
+- [x] Lighthouse report attached added in Readme (at the bottom of this readme)
 
 
 ## Running locally
@@ -51,3 +51,7 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Lighthouse result
+
+![image](https://github.com/user-attachments/assets/23de76df-25c3-45b3-b091-cfd13ae82661)
