@@ -1,13 +1,13 @@
-interface IProps {
+interface IProps extends React.ComponentProps<'aside'> {
 	children: React.ReactNode
 }
 
 export function Sidebar(props: IProps) {
-	const { children } = props
+	const { children, ...otherProps } = props
 
 	return (
-		<aside>
+		<aside {...otherProps}>
 			{children}
-		</aside>
+		</aside >
 	)
 }
