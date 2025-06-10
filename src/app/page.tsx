@@ -98,7 +98,7 @@ export default function Root() {
 			{
 				modalStatus === 'confirm' && (
 					<Modal open onClose={closeModal}>
-						<div className="p-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-md">
+						<div className="p-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 rounded-md">
 							<p>Are you sure you want to confirm the selected fields?</p>
 							<div className="flex justify-center gap-2 mt-10">
 								<Button onClick={() => setModalStatus('success')} className="bg-green-300">Confirm</Button>
@@ -111,9 +111,9 @@ export default function Root() {
 			{
 				modalStatus === 'success' && (
 					<Modal open onClose={closeModal}>
-						<div className="p-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md bg-green-300">
+						<div className="p-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md bg-green-300 dark:bg-green-800">
 							<p>Fields confirmed and processed successfully.</p>
-							<Button onClick={closeModal} className="bg-gray-100 mt-10 mx-auto block">Close</Button>
+							<Button onClick={closeModal} className="bg-gray-100 dark:bg-gray-800 mt-10 mx-auto block">Close</Button>
 						</div>
 					</Modal>
 				)
