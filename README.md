@@ -1,3 +1,5 @@
+Project can be played live in https://docsumo-take-home-task.vercel.app/
+
 ## Task list
 
 ### 1. Right Sidebar
