@@ -4,7 +4,6 @@ import { useEffect } from "react"
 interface IProps {
 	id: number
 	position: [number, number, number, number]
-	isShow: boolean
 }
 
 export function BBox(props: IProps) {

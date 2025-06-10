@@ -3,6 +3,7 @@ import { getInitials } from "@/lib/util"
 import { IField } from "@/types/field"
 import { Checkbox, } from "@mui/material"
 import { EllipsisMenu } from "@/components/menu"
+import { useState } from "react"
 
 interface IProps {
 	field: IField
@@ -14,9 +15,13 @@ interface IProps {
 export function Field(props: IProps) {
 	const { field: { label, content, id, isChecked }, removeField, selectField, deselectField } = props
 
+	const [isHovering, setIsHovering] = useState(false)
+
+	const isShowBox = isChecked || isHovering
+
 	return (
 		<>
-			<fieldset className="rounded-md p-2.5 flex bg-gray-100 dark:bg-gray dark:text-white">
+			<fieldset className="rounded-md p-2.5 flex bg-gray-100 dark:bg-gray dark:text-white" onMouseOver={() => setIsHovering(true)} onMouseOut={() => setIsHovering(false)}>
 				<div className="flex-grow flex items-start gap-2">
 					<div className="rounded-sm flex overflow-hidden">
 						<div className="w-1 bg-red-500 items-stretch"></div>
@@ -34,8 +39,8 @@ export function Field(props: IProps) {
 						{ label: 'Remove', action: () => removeField(id) }
 					]} />
 					{
-						isChecked && (
-							<BBox position={content?.position} id={id} isShow={isChecked} />
+						isShowBox && (
+							<BBox position={content?.position} id={id} />
 						)
 					}
 				</div>
