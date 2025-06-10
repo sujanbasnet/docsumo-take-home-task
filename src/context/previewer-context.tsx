@@ -1,4 +1,4 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useMemo, useState } from "react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useMemo, useState } from "react";
 
 interface IPreviewerContext {
 	imageCanvas: HTMLCanvasElement | null
@@ -32,6 +32,22 @@ export function PreviewerContextProvider(props: { children: ReactNode }) {
 	const [scale, setScale] = useState<IPreviewerContext['scale']>(1)
 	const [initialScale, setInitialScale] = useState<number>()
 	const [hasImageBeenDrawn, setHasImageBeenDrawn] = useState(false)
+
+	useEffect(() => {
+		function wheelEventHandler(e: WheelEvent) {
+			if (e.deltaY > 0) {
+				setScale(scale => scale === 1 ? 1.75 : 2)
+			} else {
+				setScale(scale => scale === 2 ? 1.75 : 1)
+			}
+		}
+
+		window.addEventListener('wheel', wheelEventHandler)
+
+		return () => {
+			window.removeEventListener('wheel', wheelEventHandler)
+		}
+	}, [])
 
 	const value = useMemo(() => ({
 		canvas2dCtx,
