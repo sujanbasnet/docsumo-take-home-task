@@ -1,13 +1,15 @@
 import { usePreviewerContext } from "@/context/previewer-context"
+import { hexToRgba } from "@/lib/util"
 import { useEffect } from "react"
 
 interface IProps {
 	id: number
 	position: [number, number, number, number]
+	color: string
 }
 
 export function BBox(props: IProps) {
-	const { position } = props
+	const { position, color } = props
 
 	const { bboxCanvas: canvas, canvas2dCtx, hasImageBeenDrawn, offset, scale, initialScale } = usePreviewerContext()
 
@@ -61,7 +63,7 @@ export function BBox(props: IProps) {
 		ctx.translate(-canvasWidth / 2, -canvasHeight / 2)
 		ctx.beginPath()
 		ctx.rect(scaledX1, scaledY1, width, height)
-		ctx.fillStyle = 'rgba(0,255,0,0.3)'
+		ctx.fillStyle = hexToRgba(color, 0.5) || "rgba(0, 0, 0, 0.3)"
 		ctx.fill()
 
 		ctx.restore()

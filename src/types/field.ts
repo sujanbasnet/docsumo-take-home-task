@@ -32,4 +32,5 @@ export interface IField {
 
 	// custom fields (added by app)
 	isChecked: boolean
+	color: string
 }

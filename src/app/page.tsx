@@ -8,11 +8,13 @@ import Sections from '@/data/sections.json'
 import { PreviewerContextProvider } from "@/context/previewer-context";
 import { Modal, Tab, Tabs, } from "@mui/material";
 import { Button } from "@/components/button";
+import colors from '@/data/colors.json'
 
 export default function Root() {
-	const [fields, setFields] = useState(Sections.data.sections[0].children.map(child => ({
+	const [fields, setFields] = useState(Sections.data.sections[0].children.map((child, index) => ({
 		...child,
-		isChecked: false
+		isChecked: false,
+		color: colors[index]?.hex
 	})))
 
 	const [modalStatus, setModalStatus] = useState<'confirm' | 'success' | 'closed'>('closed')
@@ -32,7 +34,6 @@ export default function Root() {
 						isChecked: true
 					}
 				}
-
 				return { ...field }
 			})
 		})
@@ -47,7 +48,6 @@ export default function Root() {
 						isChecked: false,
 					}
 				}
-
 				return { ...field }
 			})
 		})

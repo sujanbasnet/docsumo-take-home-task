@@ -13,7 +13,7 @@ interface IProps {
 }
 
 export function Field(props: IProps) {
-	const { field: { label, content, id, isChecked }, removeField, selectField, deselectField } = props
+	const { field: { label, content, id, isChecked, color }, removeField, selectField, deselectField } = props
 
 	const [isHovering, setIsHovering] = useState(false)
 
@@ -23,9 +23,9 @@ export function Field(props: IProps) {
 		<>
 			<fieldset className="rounded-md p-2.5 flex bg-gray-100 dark:bg-gray dark:text-white" onMouseOver={() => setIsHovering(true)} onMouseOut={() => setIsHovering(false)}>
 				<div className="flex-grow flex items-start gap-2">
-					<div className="rounded-sm flex overflow-hidden">
-						<div className="w-1 bg-red-500 items-stretch"></div>
-						<div className="px-2 bg-red-300 py-1">{getInitials(label)}</div>
+					<div className="rounded-sm flex overflow-hidden bg-[var(--fill)]" style={{ ['--fill' as string]: color }}>
+						<div className="w-1 items-stretch"></div>
+						<div className="px-2 bg-[var(--fill)] py-1 relative text-white bg-black/30 font-bold">{getInitials(label)}</div>
 					</div>
 					<div className="flex flex-col gap-2 pt-1">
 						<legend className="text-sm">{label}</legend>
@@ -40,7 +40,7 @@ export function Field(props: IProps) {
 					]} />
 					{
 						isShowBox && (
-							<BBox position={content?.position} id={id} />
+							<BBox position={content?.position} id={id} color={color} />
 						)
 					}
 				</div>
